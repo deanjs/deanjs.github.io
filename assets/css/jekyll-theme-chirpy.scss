@@ -1,0 +1,265 @@
+---
+---
+
+@use 'main';
+
+.code-header::before {
+  background-color: #ff5f57 !important;
+  box-shadow:
+    20px 0 0 0 #febc2e,
+    40px 0 0 0 #28c840 !important;
+}
+.MathJax {
+  font-size: 1.5em !important;
+}
+
+.content {
+  font-size: 1.1rem !important;
+}
+
+article {
+  h1 {
+    font-size: 2rem !important;
+    font-weight: 700;
+  }
+}
+
+article {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: 1.7rem !important;
+    font-weight: 700;
+  }
+}
+
+.post-preview h1,
+.post-preview .card-title {
+  font-size: 1.5rem !important;
+}
+
+/* GitHub Dark 코드 글자 색깔 */
+/* 키워드 */
+.highlight .k,
+.highlight .kc,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kt,
+.highlight .nc,
+.highlight .nd {
+  color: #ff7b72 !important;
+}
+
+/* 함수명 */
+.highlight .nf {
+  color: #d2a8ff !important;
+}
+
+/* 내장함수 */
+.highlight .nb {
+  color: #ffa657 !important;
+}
+
+/* 문자열 */
+.highlight .s,
+.highlight .sa,
+.highlight .sb,
+.highlight .sc,
+.highlight .dl,
+.highlight .sd,
+.highlight .s2,
+.highlight .se,
+.highlight .sh,
+.highlight .si,
+.highlight .sx,
+.highlight .sr,
+.highlight .s1,
+.highlight .ss {
+  color: #a5d6ff !important;
+}
+
+/* 숫자 */
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .il,
+.highlight .mo {
+  color: #79c0ff !important;
+}
+
+/* 주석 */
+.highlight .c,
+.highlight .ch,
+.highlight .cm,
+.highlight .cp,
+.highlight .cpf,
+.highlight .c1,
+.highlight .cs {
+  color: #8b949e !important;
+  font-style: italic;
+}
+
+/* 연산자 */
+.highlight .o,
+.highlight .ow {
+  color: #ff7b72 !important;
+}
+body,
+#sidebar,
+.card,
+.post-preview,
+#main-wrapper,
+.container,
+#topbar-wrapper,
+#toc-bar,
+footer {
+  background-color: #000000 !important;
+}
+#topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 50px;
+  border-bottom: 0.5px solid #333;
+  background: #000000;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+#topnav .site-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#topnav .topnav-links {
+  display: flex;
+  gap: 28px;
+}
+
+#topnav .topnav-links a {
+  font-size: 13px;
+  color: #aaaaaa;
+  text-decoration: none;
+}
+
+#topnav .topnav-links a:hover {
+  color: #ffffff;
+}
+
+#sidebar {
+  display: none !important;
+}
+
+#main-wrapper {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+#main-wrapper .container {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* xl: 본문만 중앙 정렬 (패널은 흐름 유지) */
+@media (min-width: 1200px) {
+  main[aria-label='Main Content'] {
+    margin: 0 auto !important;
+  }
+}
+
+/* xxl(1400px+): 본문 완전 중앙 + 패널 오른쪽에 sticky */
+@media (min-width: 1400px) {
+  #main-wrapper .container > .row.flex-grow-1 {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    /* 패널 너비만큼 왼쪽 패딩 → main이 정확히 viewport 중앙에 위치 */
+    padding-left: 260px !important;
+  }
+
+  main[aria-label='Main Content'] {
+    flex: 0 0 740px !important;
+    max-width: 740px !important;
+    width: 740px !important;
+    margin: 0 !important;
+  }
+
+  #panel-wrapper {
+    flex: 0 0 260px !important;
+    width: 260px !important;
+    position: sticky !important;
+    top: 60px !important;
+    align-self: flex-start !important;
+  }
+
+  #tail-wrapper {
+    max-width: 740px !important;
+    margin: 0 auto !important;
+    float: none !important;
+  }
+}
+
+#toc-wrapper {
+  top: 60px !important;
+  visibility: visible !important;
+}
+
+#panel-wrapper::before,
+#panel-wrapper::after,
+#toc-wrapper::before,
+#toc-wrapper::after {
+  display: none !important;
+}
+
+main:has(article[data-toc]) ~ #panel-wrapper .access {
+  display: none !important;
+}
+
+.access {
+  animation: slideUpFade 0.6s ease-out both;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toc-border-cover {
+  display: none !important;
+}
+
+/* TOC 파란 바 부드러운 전환 */
+#toc a {
+  transition: color 0.3s ease;
+}
+
+#toc a::before {
+  display: inline-block !important;
+  width: 1px !important;
+  height: 1.25rem !important;
+  background-color: var(--toc-highlight) !important;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#toc .is-active-link::before {
+  opacity: 1 !important;
+}

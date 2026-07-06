@@ -1,0 +1,113 @@
+---
+layout: compress
+---
+
+<!doctype html>
+
+{% include origin-type.html %} {% include lang.html %} {% if site.theme_mode %}
+{% capture prefer_mode %}data-mode="{{ site.theme_mode }}"{% endcapture %} {%
+endif %}
+
+<html
+  lang="{{ page.lang | default: site.alt_lang | default: site.lang }}"
+  {{
+  prefer_mode
+  }}
+>
+  {% include head.html lang=lang %}
+
+  <body>
+    <nav id="topnav">
+      <a class="site-title" href="https://github.com/deanjs" target="_blank"><i class="fab fa-github"></i> {{ site.title }}</a>
+      <div class="topnav-links">
+        <a href="{{ site.baseurl }}/">Home</a>
+        <a href="{{ site.baseurl }}/categories/">Categories</a>
+        <a href="{{ site.baseurl }}/tags/">Tags</a>
+        <a href="{{ site.baseurl }}/archives/">Archive</a>
+        <a href="{{ site.baseurl }}/about/">About</a>
+      </div>
+    </nav>
+
+    <div id="main-wrapper" class="d-flex justify-content-center">
+      <div class="container d-flex flex-column px-xxl-5">
+        <div class="row flex-grow-1">
+          <main
+            aria-label="Main Content"
+            class="col-12 col-lg-11 col-xl-9 px-md-4"
+          >
+            {% if layout.layout == 'default' %} {% include refactor-content.html
+            content=content lang=lang %} {% else %} {{ content }} {% endif %}
+          </main>
+
+          <!-- panel -->
+          <aside
+            aria-label="Panel"
+            id="panel-wrapper"
+            class="col-xl-3 ps-2 text-muted"
+          >
+            <div class="access">
+              {% include_cached update-list.html lang=lang %} {% include_cached
+              trending-tags.html lang=lang %}
+            </div>
+
+            {% for _include in layout.panel_includes %} {% assign _include_path
+            = _include | append: '.html' %} {% include {{ _include_path }}
+            lang=lang %} {% endfor %}
+          </aside>
+        </div>
+
+        <div class="row">
+          <!-- tail -->
+          <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            {% for _include in layout.tail_includes %} {% assign _include_path =
+            _include | append: '.html' %} {% include {{ _include_path }}
+            lang=lang %} {% endfor %} {% include_cached footer.html lang=lang %}
+          </div>
+        </div>
+
+        {% include_cached search-results.html lang=lang %}
+      </div>
+
+      <aside aria-label="Scroll to Top">
+        <button
+          id="back-to-top"
+          type="button"
+          class="btn btn-lg btn-box-shadow"
+        >
+          <i class="fas fa-angle-up"></i>
+        </button>
+      </aside>
+    </div>
+
+    <div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div>
+
+    <script>
+      window.addEventListener('load', function () {
+        if (!document.getElementById('toc')) return;
+        matchMedia('(min-width: 1200px)').addEventListener('change', function (e) {
+          if (!e.matches || typeof tocbot === 'undefined') return;
+          setTimeout(function () {
+            var toc = document.getElementById('toc');
+            if (toc && !toc.hasChildNodes()) {
+              tocbot.destroy();
+              tocbot.init({
+                tocSelector: '#toc',
+                contentSelector: '.content',
+                ignoreSelector: '[data-toc-skip]',
+                headingSelector: 'h2, h3, h4',
+                orderedList: false,
+                scrollSmooth: false,
+                headingsOffset: 32
+              });
+            }
+          }, 50);
+        });
+      });
+    </script>
+
+    {% if site.pwa.enabled %} {% include_cached notification.html lang=lang %}
+    {% endif %} {% for _include in layout.script_includes %} {% assign
+    _include_path = _include | append: '.html' %} {% include {{ _include_path }}
+    %} {% endfor %} {% include_cached search-loader.html lang=lang %}
+  </body>
+</html>
